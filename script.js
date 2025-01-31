@@ -1,5 +1,5 @@
 // Sample bus schedule data
-const busSchedule = [
+let busSchedule = [
     { name: "Bhrampputtra", route: "Foujdari → Campus", time: "8:00 AM", image: "assets/images/bus1.jpg" },
     { name: "Jamuna", route: "Foujdari → Campus", time: "9:00 AM", image: "assets/images/bus2.jpg" },
     { name: "Shongkho Chill", route: "Foujdari → Campus", time: "10:00 AM", image: "assets/images/bus3.jpg" },
@@ -10,7 +10,7 @@ function displaySchedule() {
     const scheduleList = document.getElementById("schedule-list");
     scheduleList.innerHTML = ""; // Clear existing content
 
-    busSchedule.forEach((bus) => {
+    busSchedule.forEach((bus, index) => {
         const busItem = document.createElement("div");
         busItem.className = "bus-item";
         busItem.innerHTML = `
@@ -20,6 +20,7 @@ function displaySchedule() {
                 <p>Time: ${bus.time}</p>
                 <p>Route: ${bus.route}</p>
             </div>
+            <button onclick="deleteBus(${index})">Delete</button>
         `;
         scheduleList.appendChild(busItem);
     });
@@ -41,36 +42,20 @@ closeSidebar.addEventListener("click", () => {
     sidebar.classList.remove("active");
 });
 
-// Modal Toggle
+// Admin Login Functionality
 const adminOption = document.getElementById("admin-option");
-const emergencyOption = document.getElementById("emergency-option");
-const adminModal = document.getElementById("admin-modal");
-const emergencyModal = document.getElementById("emergency-modal");
-const closeModals = document.querySelectorAll(".close-modal");
+const adminLogin = document.getElementById("admin-login");
+const adminPanel = document.getElementById("admin-panel");
+const busScheduleSection = document.getElementById("bus-schedule");
+const emergencyContactSection = document.getElementById("emergency-contact");
 
 adminOption.addEventListener("click", () => {
-    adminModal.style.display = "block";
+    busScheduleSection.style.display = "none";
+    adminPanel.style.display = "none";
+    emergencyContactSection.style.display = "none";
+    adminLogin.style.display = "block";
 });
 
-emergencyOption.addEventListener("click", () => {
-    emergencyModal.style.display = "block";
-});
-
-closeModals.forEach((close) => {
-    close.addEventListener("click", () => {
-        adminModal.style.display = "none";
-        emergencyModal.style.display = "none";
-    });
-});
-
-window.addEventListener("click", (event) => {
-    if (event.target === adminModal || event.target === emergencyModal) {
-        adminModal.style.display = "none";
-        emergencyModal.style.display = "none";
-    }
-});
-
-// Admin Login
 const adminLoginForm = document.getElementById("admin-login-form");
 const password = "eee69"; // Admin password
 
@@ -80,8 +65,55 @@ adminLoginForm.addEventListener("submit", (e) => {
 
     if (inputPassword === password) {
         alert("Login successful!");
-        adminModal.style.display = "none";
+        adminLogin.style.display = "none";
+        adminPanel.style.display = "block";
     } else {
         alert("Incorrect password!");
     }
+});
+
+// Back to Main Page Functionality
+const backToMain = document.getElementById("back-to-main");
+backToMain.addEventListener("click", () => {
+    adminPanel.style.display = "none";
+    busScheduleSection.style.display = "block";
+});
+
+// Add Bus Functionality
+const addBusForm = document.getElementById("add-bus-form");
+addBusForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value;
+    const route = document.getElementById("route").value;
+    const time = document.getElementById("time").value;
+    const image = document.getElementById("image").files[0];
+
+    if (image) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            busSchedule.push({ name, route, time, image: e.target.result });
+            displaySchedule();
+            alert("Bus added successfully!");
+        };
+        reader.readAsDataURL(image);
+    }
+});
+
+// Delete Bus Functionality
+function deleteBus(index) {
+    busSchedule.splice(index, 1);
+    displaySchedule();
+    alert("Bus deleted successfully!");
+}
+
+// Emergency Contact Update Functionality
+const emergencyContactForm = document.getElementById("emergency-contact-form");
+emergencyContactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const contactName = document.getElementById("contact-name-input").value;
+    const contactNumber = document.getElementById("contact-number-input").value;
+
+    document.getElementById("contact-name").textContent = contactName;
+    document.getElementById("contact-number").textContent = contactNumber;
+    alert("Emergency contact updated successfully!");
 });
