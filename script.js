@@ -81,6 +81,7 @@ adminLoginForm.addEventListener("submit", (e) => {
         alert("Login successful!");
         adminLogin.style.display = "none";
         adminPanel.style.display = "block";
+        displayAdminBusList(); // Load admin bus list
     } else {
         alert("Incorrect password!");
     }
@@ -107,6 +108,7 @@ addBusForm.addEventListener("submit", (e) => {
         reader.onload = function (e) {
             busSchedule.push({ name, route, time, image: e.target.result });
             displaySchedule();
+            displayAdminBusList(); // Update admin bus list
             saveData();
             alert("Bus added successfully!");
         };
@@ -114,15 +116,45 @@ addBusForm.addEventListener("submit", (e) => {
     }
 });
 
+// Display Admin Bus List
+function displayAdminBusList() {
+    const busList = document.getElementById("bus-list");
+    busList.innerHTML = ""; // Clear existing content
+
+    busSchedule.forEach((bus, index) => {
+        const busItem = document.createElement("div");
+        busItem.className = "bus-item";
+        busItem.innerHTML = `
+            <img src="${bus.image}" alt="${bus.name}">
+            <div class="details">
+                <h3>${bus.name}</h3>
+                <p>Time: ${bus.time}</p>
+                <p>Route: ${bus.route}</p>
+            </div>
+            <button onclick="deleteBus(${index})">Delete</button>
+        `;
+        busList.appendChild(busItem);
+    });
+}
+
 // Delete Bus Functionality (Only in Admin Panel)
 function deleteBus(index) {
     busSchedule.splice(index, 1);
     displaySchedule();
+    displayAdminBusList(); // Update admin bus list
     saveData();
     alert("Bus deleted successfully!");
 }
 
 // Emergency Contact Update Functionality
+const emergencyOption = document.getElementById("emergency-option");
+emergencyOption.addEventListener("click", () => {
+    busScheduleSection.style.display = "none";
+    adminPanel.style.display = "none";
+    adminLogin.style.display = "none";
+    emergencyContactSection.style.display = "block";
+});
+
 const emergencyContactForm = document.getElementById("emergency-contact-form");
 emergencyContactForm.addEventListener("submit", (e) => {
     e.preventDefault();
