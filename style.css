@@ -90,6 +90,35 @@ main {
     color: #27ae60;
 }
 
+/* Latest Update Section */
+#latest-update {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#update-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.update-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #e9ecef;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.update-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
 /* Bus Schedule Section */
 #bus-schedule {
     background-color: #fff;
@@ -137,161 +166,4 @@ main {
 }
 
 .bus-item .details p {
-    margin: 5px 0;
-    color: #555;
-}
-
-/* Admin Login Section */
-#admin-login {
-    background-color: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#admin-login-form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-#admin-login-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#admin-login-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #2c3e50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#admin-login-form button:hover {
-    background-color: #34495e;
-}
-
-/* Admin Panel Section */
-#admin-panel {
-    background-color: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#back-to-main {
-    width: 100%;
-    padding: 10px;
-    background-color: #e74c3c;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 20px;
-}
-
-#back-to-main:hover {
-    background-color: #c0392b;
-}
-
-#add-bus-form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-#add-bus-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#add-bus-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #27ae60;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#add-bus-form button:hover {
-    background-color: #2ecc71;
-}
-
-#bus-list {
-    margin-top: 20px;
-}
-
-/* Emergency Contact Section */
-#emergency-contact {
-    background-color: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#emergency-contact-form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-#emergency-contact-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#emergency-contact-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #27ae60;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#emergency-contact-form button:hover {
-    background-color: #2ecc71;
-}
-
-/* Footer */
-footer {
-    background-color: #2c3e50;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 1.5rem;
-    }
-
-    .bus-item {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .bus-item img {
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-}
+[_{{{CITATION{{{_1{](https://github.com/antydemant/lessons-2020/tree/0c6095f45bfd841914ac8e7e25f8c9df273dea69/02-closure-and-context%2Fhomework%2FREADME.md)[_{{{CITATION{{{_2{](https://github.com/tahinia/HTML-CSS-Reflection/tree/6c9433f61f69d509eb06a9b2dc2b195eb9ad3ddd/contact.php)
