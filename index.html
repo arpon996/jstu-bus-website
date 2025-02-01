@@ -28,6 +28,14 @@
     </header>
 
     <main>
+        <!-- Latest Update Section -->
+        <section id="latest-update">
+            <h2>Latest Update</h2>
+            <div id="update-content">
+                <!-- Latest updates will be dynamically loaded here -->
+            </div>
+        </section>
+
         <!-- Bus Schedule Section -->
         <section id="bus-schedule">
             <h2>Bus Schedule</h2>
@@ -64,18 +72,26 @@
             <div id="bus-list">
                 <!-- Bus list will be dynamically loaded here -->
             </div>
-        </section>
-
-        <!-- Emergency Contact Section (Hidden by Default) -->
-        <section id="emergency-contact" style="display: none;">
-            <h2>Emergency Contact</h2>
-            <form id="emergency-contact-form">
+            <form id="update-form">
+                <label for="update-content">Update Content:</label>
+                <textarea id="update-content-input" required></textarea>
+                <button type="submit">Update</button>
+            </form>
+            <form id="emergency-contact-form-admin">
+                <label for="contact-post-input">Contact Post:</label>
+                <input type="text" id="contact-post-input" required>
                 <label for="contact-name-input">Contact Name:</label>
                 <input type="text" id="contact-name-input" required>
                 <label for="contact-number-input">Contact Number:</label>
                 <input type="text" id="contact-number-input" required>
                 <button type="submit">Update Contact</button>
             </form>
+        </section>
+
+        <!-- Emergency Contact Section (Hidden by Default) -->
+        <section id="emergency-contact" style="display: none;">
+            <h2>Emergency Contact</h2>
+            <p>Post: <span id="contact-post">Manager</span></p>
             <p>Contact Person: <span id="contact-name">John Doe</span></p>
             <p>Phone: <span id="contact-number">+8801XXX-XXXXXX</span></p>
         </section>
