@@ -6,9 +6,12 @@ let busSchedule = JSON.parse(localStorage.getItem("busSchedule")) || [
 ];
 
 let emergencyContact = JSON.parse(localStorage.getItem("emergencyContact")) || {
+    post: "Manager",
     name: "John Doe",
     number: "+8801XXX-XXXXXX",
 };
+
+let latestUpdates = JSON.parse(localStorage.getItem("latestUpdates")) || [];
 
 // Function to display bus schedule
 function displaySchedule() {
@@ -30,17 +33,35 @@ function displaySchedule() {
     });
 }
 
+// Function to display latest updates
+function displayLatestUpdates() {
+    const updateContent = document.getElementById("update-content");
+    updateContent.innerHTML = ""; // Clear existing content
+
+    latestUpdates.forEach((update, index) => {
+        const updateItem = document.createElement("div");
+        updateItem.className = "update-item";
+        updateItem.innerHTML = `
+            <p>${update}</p>
+        `;
+        updateContent.appendChild(updateItem);
+    });
+}
+
 // Function to save data to localStorage
 function saveData() {
     localStorage.setItem("busSchedule", JSON.stringify(busSchedule));
     localStorage.setItem("emergencyContact", JSON.stringify(emergencyContact));
+    localStorage.setItem("latestUpdates", JSON.stringify(latestUpdates));
 }
 
-// Load schedule and emergency contact on page load
+// Load schedule, emergency contact, and latest updates on page load
 window.onload = () => {
     displaySchedule();
+    displayLatestUpdates();
     document.getElementById("contact-name").textContent = emergencyContact.name;
     document.getElementById("contact-number").textContent = emergencyContact.number;
+    document.getElementById("contact-post").textContent = emergencyContact.post;
 };
 
 // Sidebar Toggle
@@ -155,16 +176,31 @@ emergencyOption.addEventListener("click", () => {
     emergencyContactSection.style.display = "block";
 });
 
-const emergencyContactForm = document.getElementById("emergency-contact-form");
-emergencyContactForm.addEventListener("submit", (e) => {
+const emergencyContactFormAdmin = document.getElementById("emergency-contact-form-admin");
+emergencyContactFormAdmin.addEventListener("submit", (e) => {
     e.preventDefault();
+    const contactPost = document.getElementById("contact-post-input").value;
     const contactName = document.getElementById("contact-name-input").value;
     const contactNumber = document.getElementById("contact-number-input").value;
 
+    emergencyContact.post = contactPost;
     emergencyContact.name = contactName;
     emergencyContact.number = contactNumber;
     document.getElementById("contact-name").textContent = contactName;
     document.getElementById("contact-number").textContent = contactNumber;
+    document.getElementById("contact-post").textContent = contactPost;
     saveData();
     alert("Emergency contact updated successfully!");
+});
+
+// Add Latest Update Functionality
+const updateForm = document.getElementById("update-form");
+updateForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const updateContentInput = document.getElementById("update-content-input").value;
+
+    latestUpdates.push(updateContentInput);
+    displayLatestUpdates();
+    saveData();
+    alert("Update added successfully!");
 });
