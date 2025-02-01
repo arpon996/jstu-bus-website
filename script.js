@@ -25,7 +25,6 @@ function displaySchedule() {
                 <p>Time: ${bus.time}</p>
                 <p>Route: ${bus.route}</p>
             </div>
-            <button onclick="deleteBus(${index})">Delete</button>
         `;
         scheduleList.appendChild(busItem);
     });
@@ -115,7 +114,7 @@ addBusForm.addEventListener("submit", (e) => {
     }
 });
 
-// Delete Bus Functionality
+// Delete Bus Functionality (Only in Admin Panel)
 function deleteBus(index) {
     busSchedule.splice(index, 1);
     displaySchedule();
