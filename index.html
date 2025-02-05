@@ -6,6 +6,31 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 
 <script>
+    <script>
+  // ডেটা সেভ করার ফাংশন
+  function saveSchedule(time) {
+    database.ref('schedule/').set({
+      time: time
+    }).then(() => {
+      console.log("ডেটা সেভ হয়েছে!");
+    }).catch((error) => {
+      console.error("ডেটা সেভ করতে সমস্যা: ", error);
+    });
+  }
+
+  // ডেটা রিট্রিভ করার ফাংশন
+  function getSchedule() {
+    database.ref('schedule/').on('value', (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+      // ডেটা UI তে শো করো
+      document.getElementById('schedule-time').innerText = data.time;
+    });
+  }
+
+  // পেজ লোড হওয়ার সাথে সাথে ডেটা লোড করো
+  window.onload = getSchedule;
+</script>
   // Firebase কনফিগারেশন
   const firebaseConfig = {
     apiKey: "AIzaSyDqayZt31Ss2G91uaF7OX8IaKzQ1VvFZbg",
