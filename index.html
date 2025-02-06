@@ -1,60 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JSTU Bus Schedule</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSTU Bus & Transportation Schedule</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <main>
-    <section id="main-page">
-      <h1>Welcome to JSTU Bus Schedule</h1>
-      <p>বাসের সময়: <span id="schedule-time">Loading...</span></p>
-      <button onclick="saveSchedule('10:00 AM')">সময় সেভ করো</button>
-      <button id="admin-login">Admin Login</button>
-      <button id="emergency-contact-btn">Emergency Contact</button>
-    </section>
-  </main>
+    <!-- Sidebar Menu -->
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <h3>Menu</h3>
+            <button id="close-sidebar"><i class="fas fa-times"></i></button>
+        </div>
+        <ul>
+            <li><a href="#" id="admin-option">Admin</a></li>
+            <li><a href="#" id="emergency-option">Emergency Contact</a></li>
+        </ul>
+    </div>
 
-  <footer>
-    <p>&copy; 2025 JSTU. All rights reserved.</p>
-  </footer>
+    <!-- Main Content -->
+    <header>
+        <button id="menu-toggle"><i class="fas fa-ellipsis-v"></i></button>
+        <h1>JSTU Bus & Transportation Schedule</h1>
+    </header>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+    <main>
+        <!-- Latest Update Section -->
+        <section id="latest-update">
+            <h2>Latest Update</h2>
+            <div id="update-content">
+                <!-- Latest updates will be dynamically loaded here -->
+            </div>
+        </section>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDqayZt31Ss2G91uaF7OX8IaKzQ1VvFZbg",
-      authDomain: "jstubus.firebaseapp.com",
-      databaseURL: "https://jstubus-default-rtdb.firebaseio.com",
-      projectId: "jstubus",
-      storageBucket: "jstubus.appspot.com",
-      messagingSenderId: "118358965133",
-      appId: "1:118358965133:web:011a50f7c53763cd7f5bc4"
-    };
+        <!-- Bus Schedule Section -->
+        <section id="bus-schedule">
+            <h2>Bus Schedule</h2>
+            <div id="schedule-list">
+                <!-- Bus schedules will be dynamically loaded here -->
+            </div>
+        </section>
 
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
+        <!-- Admin Login Section (Hidden by Default) -->
+        <section id="admin-login" style="display: none;">
+            <h2>Admin Login</h2>
+            <form id="admin-login-form">
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </section>
 
-    function saveSchedule(time) {
-      set(ref(database, 'schedule/'), { time: time })
-        .then(() => console.log("Data Saved!"))
-        .catch((error) => console.error("Error saving data:", error));
-    }
+        <!-- Admin Panel Section (Hidden by Default) -->
+        <section id="admin-panel" style="display: none;">
+            <h2>Admin Panel</h2>
+            <button id="back-to-main">Back to Main Page</button>
+            <form id="add-bus-form">
+                <label for="name">Bus Name:</label>
+                <input type="text" id="name" required>
+                <label for="route">Route:</label>
+                <input type="text" id="route" required>
+                <label for="time">Time:</label>
+                <input type="text" id="time" required>
+                <label for="image">Upload Bus Image:</label>
+                <input type="file" id="image" accept="image/*" required>
+                <button type="submit">Add Bus</button>
+            </form>
+            <div id="bus-list">
+                <!-- Bus list will be dynamically loaded here -->
+            </div>
+            <form id="update-form">
+                <label for="update-content">Update Content:</label>
+                <textarea id="update-content-input" required></textarea>
+                <button type="submit">Update</button>
+            </form>
+            <form id="emergency-contact-form-admin">
+                <label for="contact-post-input">Contact Post:</label>
+                <input type="text" id="contact-post-input" required>
+                <label for="contact-name-input">Contact Name:</label>
+                <input type="text" id="contact-name-input" required>
+                <label for="contact-number-input">Contact Number:</label>
+                <input type="text" id="contact-number-input" required>
+                <button type="submit">Update Contact</button>
+            </form>
+        </section>
 
-    function getSchedule() {
-      const dbRef = ref(database, 'schedule/');
-      onValue(dbRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          document.getElementById('schedule-time').innerText = data.time;
-        }
-      });
-    }
+        <!-- Emergency Contact Section (Hidden by Default) -->
+        <section id="emergency-contact" style="display: none;">
+            <h2>Emergency Contact</h2>
+            <p>Post: <span id="contact-post">Manager</span></p>
+            <p>Contact Person: <span id="contact-name">John Doe</span></p>
+            <p>Phone: <span id="contact-number">+8801XXX-XXXXXX</span></p>
+        </section>
+    </main>
 
-    window.onload = getSchedule;
-  </script>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 JSTU. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
