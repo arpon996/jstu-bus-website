@@ -55,6 +55,20 @@
         </section>
 
         <!-- Admin Panel Section (Hidden by Default) -->
+        <!-- Admin Panel-এর নিচে এই Form বসাও -->
+<div id="adminPanel">
+    <h2>Add New Bus</h2>
+    <form id="addBusForm">
+        <input type="text" id="busName" placeholder="Bus Name" required>
+        <input type="text" id="busRoute" placeholder="Bus Route" required>
+        <input type="time" id="busTime" required>
+        <input type="file" id="busImage" accept="image/*" required>
+        <button type="submit">Add Bus</button>
+    </form>
+</div>
+
+<!-- এখানে বাসের তথ্য দেখানো হবে -->
+<div id="busScheduleContainer"></div>
         <section id="admin-panel" style="display: none;">
             <h2>Admin Panel</h2>
             <button id="back-to-main">Back to Main Page</button>
