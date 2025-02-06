@@ -7,6 +7,25 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script>
+        // Firebase কনফিগারেশন
+        const firebaseConfig = {
+            apiKey: "AIzaSyDqayZt31Ss2G91uaF7OX8IaKzQ1VvFZbg",
+            authDomain: "jstubus.firebaseapp.com",
+            databaseURL: "https://jstubus-default-rtdb.firebaseio.com",
+            projectId: "jstubus",
+            storageBucket: "jstubus.appspot.com",
+            messagingSenderId: "118358965133",
+            appId: "1:118358965133:web:011a50f7c53763cd7f5bc4"
+        };
+
+        // Firebase ইনিশিয়ালাইজ করো
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+    </script>
 </head>
 <body>
     <!-- Sidebar Menu -->
@@ -55,20 +74,6 @@
         </section>
 
         <!-- Admin Panel Section (Hidden by Default) -->
-        <!-- Admin Panel-এর নিচে এই Form বসাও -->
-<div id="adminPanel">
-    <h2>Add New Bus</h2>
-    <form id="addBusForm">
-        <input type="text" id="busName" placeholder="Bus Name" required>
-        <input type="text" id="busRoute" placeholder="Bus Route" required>
-        <input type="time" id="busTime" required>
-        <input type="file" id="busImage" accept="image/*" required>
-        <button type="submit">Add Bus</button>
-    </form>
-</div>
-
-<!-- এখানে বাসের তথ্য দেখানো হবে -->
-<div id="busScheduleContainer"></div>
         <section id="admin-panel" style="display: none;">
             <h2>Admin Panel</h2>
             <button id="back-to-main">Back to Main Page</button>
