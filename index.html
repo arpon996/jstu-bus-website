@@ -1,14 +1,30 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>বাস শিডিউল</title>
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-  <script>
-    // Firebase কনফিগারেশন
+  <title>JSTU Bus Schedule</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <section id="main-page">
+      <h1>Welcome to JSTU Bus Schedule</h1>
+      <p>বাসের সময়: <span id="schedule-time">Loading...</span></p>
+      <button onclick="saveSchedule('10:00 AM')">সময় সেভ করো</button>
+      <button id="admin-login">Admin Login</button>
+      <button id="emergency-contact-btn">Emergency Contact</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 JSTU. All rights reserved.</p>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
     const firebaseConfig = {
       apiKey: "AIzaSyDqayZt31Ss2G91uaF7OX8IaKzQ1VvFZbg",
       authDomain: "jstubus.firebaseapp.com",
@@ -19,97 +35,26 @@
       appId: "1:118358965133:web:011a50f7c53763cd7f5bc4"
     };
 
-    // Firebase ইনিশিয়ালাইজ করো
-    const app = firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
 
-    // ডেটা সেভ করার ফাংশন
     function saveSchedule(time) {
-      database.ref('schedule/').set({
-        time: time
-      }).then(() => {
-        console.log("ডেটা সেভ হয়েছে!");
-      }).catch((error) => {
-        console.error("ডেটা সেভ করতে সমস্যা: ", error);
-      });
+      set(ref(database, 'schedule/'), { time: time })
+        .then(() => console.log("Data Saved!"))
+        .catch((error) => console.error("Error saving data:", error));
     }
 
-    // ডেটা রিট্রিভ করার ফাংশন
     function getSchedule() {
-      database.ref('schedule/').on('value', (snapshot) => {
+      const dbRef = ref(database, 'schedule/');
+      onValue(dbRef, (snapshot) => {
         const data = snapshot.val();
-        console.log(data);
-        // ডেটা UI তে শো করো
-        document.getElementById('schedule-time').innerText = data.time;
+        if (data) {
+          document.getElementById('schedule-time').innerText = data.time;
+        }
       });
     }
 
-    // পেজ লোড হওয়ার সাথে সাথে ডেটা লোড করো
     window.onload = getSchedule;
   </script>
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-</head>
-<body>
-  <main>
-    <!-- Main Page Section -->
-    <section id="main-page">
-      <h1>Welcome to JSTU Bus Schedule</h1>
-      <p>বাসের সময়: <span id="schedule-time"></span></p>
-      <button onclick="saveSchedule('10:00 AM')">সময় সেভ করো</button>
-      <button id="admin-login">Admin Login</button>
-      <button id="emergency-contact-btn">Emergency Contact</button>
-    </section>
-
-    <!-- Admin Panel Section (Hidden by Default) -->
-    <section id="admin-panel" style="display: none;">
-      <h2>Admin Panel</h2>
-      <button id="back-to-main">Back to Main Page</button>
-      <form id="add-bus-form">
-        <label for="name">Bus Name:</label>
-        <input type="text" id="name" required>
-        <label for="route">Route:</label>
-        <input type="text" id="route" required>
-        <label for="time">Time:</label>
-        <input type="text" id="time" required>
-        <label for="image">Upload Bus Image:</label>
-        <input type="file" id="image" accept="image/*" required>
-        <button type="submit">Add Bus</button>
-      </form>
-      <div id="bus-list">
-        <!-- Bus list will be dynamically loaded here -->
-      </div>
-      <form id="update-form">
-        <label for="update-content">Update Content:</label>
-        <textarea id="update-content-input" required></textarea>
-        <button type="submit">Update</button>
-      </form>
-      <form id="emergency-contact-form-admin">
-        <label for="contact-post-input">Contact Post:</label>
-        <input type="text" id="contact-post-input" required>
-        <label for="contact-name-input">Contact Name:</label>
-        <input type="text" id="contact-name-input" required>
-        <label for="contact-number-input">Contact Number:</label>
-        <input type="text" id="contact-number-input" required>
-        <button type="submit">Update Contact</button>
-      </form>
-    </section>
-
-    <!-- Emergency Contact Section (Hidden by Default) -->
-    <section id="emergency-contact" style="display: none;">
-      <h2>Emergency Contact</h2>
-      <p>Post: <span id="contact-post">Manager</span></p>
-      <p>Contact Person: <span id="contact-name">John Doe</span></p>
-      <p>Phone: <span id="contact-number">+8801XXX-XXXXXX</span></p>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; JSTU. All rights reserved.</p>
-  </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
