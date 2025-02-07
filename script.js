@@ -157,8 +157,77 @@ function displayAdminBusList() {
         busList.appendChild(busItem);
     });
 }
+function loadBusSchedule() {
+    db.ref("buses").on("value", (snapshot) => {
+        const data = snapshot.val();
+        let busList = "";
+        for (let key in data) {
+            busList += `<tr>
+                <td>${data[key].bus_name}</td>
+                <td>${data[key].departure}</td>
+                <td>${data[key].arrival}</td>
+                <td><button onclick="deleteBus('${key}')">❌ Delete</button></td>
+            </tr>`;
+        }
+        document.getElementById("bus-table").innerHTML = busList;
+    });
+}
 
 // Delete Bus Functionality (Only in Admin Panel)
+// 📌 Function to Delete a Bus Entry
+function deleteBus(busId) {
+    if (confirm("Are you sure you want to delete this bus schedule?")) {
+        db.ref("buses/" + busId).remove()
+            .then(() => alert("Bus schedule deleted successfully!"))
+            .catch((error) => alert("Error: " + error.message));
+    }
+}
+
+// 📌 Function to Delete a Post
+function loadPosts() {
+    db.ref("posts").on("value", (snapshot) => {
+        const data = snapshot.val();
+        let postList = "";
+        for (let key in data) {
+            postList += `<div class="post">
+                <h3>${data[key].title}</h3>
+                <p>${data[key].content}</p>
+                <button onclick="deletePost('${key}')">❌ Delete</button>
+            </div>`;
+        }
+        document.getElementById("post-container").innerHTML = postList;
+    });
+}
+function deletePost(postId) {
+    if (confirm("Are you sure you want to delete this post?")) {
+        db.ref("posts/" + postId).remove()
+            .then(() => alert("Post deleted successfully!"))
+            .catch((error) => alert("Error: " + error.message));
+    }
+}
+
+// 📌 Function to Delete a Contact Message
+function loadContacts() {
+    db.ref("contacts").on("value", (snapshot) => {
+        const data = snapshot.val();
+        let contactList = "";
+        for (let key in data) {
+            contactList += `<div class="contact-message">
+                <p><strong>${data[key].name}:</strong> ${data[key].message}</p>
+                <button onclick="deleteContact('${key}')">❌ Delete</button>
+            </div>`;
+        }
+        document.getElementById("contact-container").innerHTML = contactList;
+    });
+}
+function deleteContact(contactId) {
+    if (confirm("Are you sure you want to delete this contact message?")) {
+        db.ref("contacts/" + contactId).remove()
+            .then(() => alert("Message deleted successfully!"))
+            .catch((error) => alert("Error: " + error.message));
+    }
+}
+
 function deleteBus(index) {
     busSchedule.splice(index, 1);
     displaySchedule();
