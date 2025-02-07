@@ -7,25 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-    <script>
-        // Firebase কনফিগারেশন
-        const firebaseConfig = {
-            apiKey: "AIzaSyDqayZt31Ss2G91uaF7OX8IaKzQ1VvFZbg",
-            authDomain: "jstubus.firebaseapp.com",
-            databaseURL: "https://jstubus-default-rtdb.firebaseio.com",
-            projectId: "jstubus",
-            storageBucket: "jstubus.appspot.com",
-            messagingSenderId: "118358965133",
-            appId: "1:118358965133:web:011a50f7c53763cd7f5bc4"
-        };
-
-        // Firebase ইনিশিয়ালাইজ করো
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-    </script>
 </head>
 <body>
     <!-- Sidebar Menu -->
@@ -77,10 +58,7 @@
         <section id="admin-panel" style="display: none;">
             <h2>Admin Panel</h2>
             <button id="back-to-main">Back to Main Page</button>
-
-            <!-- Add Bus Form -->
             <form id="add-bus-form">
-                <h3>Add New Bus</h3>
                 <label for="name">Bus Name:</label>
                 <input type="text" id="name" required>
                 <label for="route">Route:</label>
@@ -91,24 +69,15 @@
                 <input type="file" id="image" accept="image/*" required>
                 <button type="submit">Add Bus</button>
             </form>
-
-            <!-- Bus List -->
-            <div id="admin-bus-list">
-                <h3>Manage Buses</h3>
+            <div id="bus-list">
                 <!-- Bus list will be dynamically loaded here -->
             </div>
-
-            <!-- Latest Update Form -->
             <form id="update-form">
-                <h3>Add Latest Update</h3>
                 <label for="update-content">Update Content:</label>
                 <textarea id="update-content-input" required></textarea>
-                <button type="submit">Add Update</button>
+                <button type="submit">Update</button>
             </form>
-
-            <!-- Emergency Contact Form -->
             <form id="emergency-contact-form-admin">
-                <h3>Update Emergency Contact</h3>
                 <label for="contact-post-input">Contact Post:</label>
                 <input type="text" id="contact-post-input" required>
                 <label for="contact-name-input">Contact Name:</label>
@@ -130,7 +99,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 JSTU. All rights reserved.</p>
+        <p>&copy; 2023 JSTU. All rights reserved.</p>
     </footer>
 
     <script src="script.js"></script>
